@@ -1,0 +1,23 @@
+Options +FollowSymLinks
+
+RewriteEngine On
+
+
+
+RewriteRule ^Inicio$                         index.php?identificador=1
+
+
+RewriteRule ^(.*)\_.*.-.html$                index.php?identificador=15&id=$1
+
+
+
+
+RewriteRule ^logout$                         index.php?identificador=990
+RewriteRule ^salir$                          index.php?identificador=991
+RewriteRule ^humans.txt$                     index.php?identificador=994
+RewriteRule ^googleca2ead9fc0f8cf01.html$    index.php?identificador=995
+RewriteRule ^robots.txt$                     index.php?identificador=996
+RewriteRule ^sitemap.xml$                    index.php?identificador=997
+RewriteRule ^preguntas-frecuentes$           index.php?identificador=998
+RewriteRule ^(.*)\_politicas$                index.php?identificador=999&id=$1
+
