@@ -1,76 +1,84 @@
 <?php
 // CARRO DE COMPRA       
-  //unset($_SESSION['carro']);
-  if (isset($_POST['emptycart'])) {
+//unset($_SESSION['carro']);
+if (isset($_POST['emptycart'])) {
     unset($_SESSION['carro']);
-  }
+}
 
-  if(isset($_SESSION['carro'])){
+if(isset($_SESSION['carro'])){
     $arreglo=$_SESSION['carro'];
-  }
+}
 
-  // Remover artículos del carro
-  if (isset($_POST['removefromcart'])) {
+// Remover artículos del carro
+if (isset($_POST['removefromcart'])) {
     $id=$_POST['id'];
     $arregloAux=$_SESSION['carro'];
     unset($arreglo);
     $num=0;
+        
     foreach ($arregloAux as $key => $value) {
-      if ($id!=$value['Id']) {
-        $arreglo[]=array('Id'=>$arregloAux[$num]['Id'],'Cantidad'=>$arregloAux[$num]['Cantidad']);
-      }
-      $num++;
-    }
-    $_SESSION['carro']=$arreglo;
-  }
-
-  // Agregar artículos al carro
-  if (isset($_POST['addtocart'])) {
-    if (isset($_POST['cantidad']) and $_POST['cantidad']!==0 and $_POST['cantidad']!=='') {
-      $id=$_POST['id'];
-
-      $carroTotalProds+=$_POST['cantidad'];
-      $arregloNuevo[]=array('Id'=>$id,'Cantidad'=>$_POST['cantidad']);
-
-      if (!isset($arreglo)) {
-        $arreglo=$arregloNuevo;
-      }else{
-        $arregloAux=$arreglo;
-        unset($arreglo);
-        $num=0;
-        foreach ($arregloAux as $key => $value) {
-          if ($id!=$arregloAux[$num]['Id']) {
+        if ($id!=$value['Id']) {
             $arreglo[]=array('Id'=>$arregloAux[$num]['Id'],'Cantidad'=>$arregloAux[$num]['Cantidad']);
-          }else{
-            $carroTotalProds-=$arregloAux[$num]['Cantidad'];
-          }
-          $num++;
         }
-        if ($_POST['cantidad']>0) {
-          $arreglo[]=array('Id'=>$id,'Cantidad'=>$_POST['cantidad']);
-        }
-      }
-      
-      echo '{ "msg":"<div class=\'uk-text-center color-blanco bg-success padding-10 text-lg\'><i class=\'fa fa-check\'></i> &nbsp; Agregado al pedido</div>", "count":'.$carroTotalProds.' }';
-
-      $_SESSION['carro']=$arreglo;
+    $num++;
     }
-  }
+        
+    $_SESSION['carro']=$arreglo;
+}
 
-  if (isset($_POST['actualizarcarro'])) {
+// Agregar artículos al carro
+if (isset($_POST['addtocart'])) {
+    if (isset($_POST['cantidad']) and $_POST['cantidad']!==0 and $_POST['cantidad']!=='') {
+        $id=$_POST['id'];
+
+        $carroTotalProds+=$_POST['cantidad'];
+        $arregloNuevo[]=array('Id'=>$id,'Cantidad'=>$_POST['cantidad']);
+
+        if (!isset($arreglo)) {
+            $arreglo=$arregloNuevo;
+        }else{
+            $arregloAux=$arreglo;
+            unset($arreglo);
+            $num=0;
+        
+            foreach ($arregloAux as $key => $value) {
+                if ($id!=$arregloAux[$num]['Id']) {
+                    $arreglo[]=array('Id'=>$arregloAux[$num]['Id'],'Cantidad'=>$arregloAux[$num]['Cantidad']);
+                }else{
+                    $carroTotalProds-=$arregloAux[$num]['Cantidad'];
+                }
+                
+                $num++;
+            }
+        
+            if ($_POST['cantidad']>0) {
+                $arreglo[]=array('Id'=>$id,'Cantidad'=>$_POST['cantidad']);
+            }
+        }
+      
+        echo '{ "msg":"<div class=\'uk-text-center color-blanco bg-success padding-10 text-lg\'><i class=\'fa fa-check\'></i> &nbsp; Agregado al pedido</div>", "count":'.$carroTotalProds.' }';
+
+        $_SESSION['carro']=$arreglo;
+    }
+}
+
+if (isset($_POST['actualizarcarro'])) {
     $arregloAux=$_SESSION['carro'];
     unset($arreglo);
     $carroTotalProds=0;
     $num=0;
+    
     foreach ($arregloAux as $key => $value) {
-      if ($_POST['cantidad'.$num]>0) {
-        $arreglo[]=array('Id'=>$arregloAux[$num]['Id'],'Cantidad'=>$_POST['cantidad'.$num]);
-        $carroTotalProds+=$_POST['cantidad'.$num];
-      }
-      $num++;
+        if ($_POST['cantidad'.$num]>0) {
+            $arreglo[]=array('Id'=>$arregloAux[$num]['Id'],'Cantidad'=>$_POST['cantidad'.$num]);
+            $carroTotalProds+=$_POST['cantidad'.$num];
+        }
+        
+        $num++;
     }
+    
     $_SESSION['carro']=$arreglo;
-  }
+}
 
   // Si ya hay productos en el carro
   $carroTotalProds=0;

@@ -167,16 +167,20 @@
 <div class="uk-container padding-v-50" id="footer">
 	<div uk-grid>
 		<div class="uk-width-auto@s uk-flex uk-flex-middle uk-flex-center wozial-logo">
+			<!--
 			<a href="wozial.com">
 				<img src="img/design/logo-wozial.png" alt="" style="max-height: 80px;">
 			</a>
+			//-->
 		</div>
 		<div class="uk-width-expand@s uk-flex uk-flex-middle uk-flex-center">
+			<!--
 			<div class="uk-text-center">
 				<a href="" class="typewrite footer-texto" data-period="2000" data-type='[ "Todos somos una familia" , "Y queremos apoyarnos" , "Eshot.mx", "Wozial.com", "Brincolinesbambinos.com",":)" ]'>
 					<span class="wrap"></span>
 				</a>
 			</div>
+			//-->
 		</div>
 		<div class="uk-width-auto@s uk-flex uk-flex-middle uk-flex-center">
 			<a href="Brincolinesbambinos.com">
