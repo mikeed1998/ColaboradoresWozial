@@ -41,7 +41,7 @@ while($result) {
 function mostarDatos($a, $b, $c, $d, $e, $f, $g, $h, $i) {
 	$output = '';
 	$output.='
-	 	<ul class="js-filter uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" uk-grid>
+	 	
 	 		<li data-servicio="'.$a.'" class="card-principal">
 	 			<div uk-grid class="uk-grid-collapse" style="padding-top: 80px">
 	 				<div class="uk-width-expand bg-white uk-text-center padding-top-20">
@@ -79,7 +79,7 @@ function mostarDatos($a, $b, $c, $d, $e, $f, $g, $h, $i) {
 	 			  	</div>
 	 			</div>
 	 		</li>
-		</ul>';
+		';
 	
 	echo $output;
 }
@@ -172,21 +172,28 @@ else
 		$urlTitulo = urlencode(str_replace($caracteres_no_validos, $caracteres_si_validos, html_entity_decode(strtolower($rowCONSULTA['titulo']))));
 		$link = $id.'_'.$urlTitulo.'-.html';
 
+		$queryS = "SELECT * FROM servicios";
+		$serviciosS = mysqli_query($connect, $queryS);
+		$rowS = $serviciosS->fetch_assoc();
+		$nombreServicio = $rowS['titulo'];
 	//	$CONSULTASERV = $result->query("SELECT * FROM servicios WHERE id = $idServicio");
 	// 	$rowCONSULTASERV = $CONSULTASERV -> fetch_assoc();
 	// 	$nombreServicio = $rowCONSULTASERV['titulo'];
-	 	$nombreServicio = '';
+	 	// $nombreServicio = '';
 
 		$imagen = $rowCONSULTA['imagen']; 
-		$link = "";
 
 	 	/* data-servicio=/*$nombreServicio*/
 		// var_dump($rowCONSULTA['titulo']);
+		$final = '';
+		$final .= '
+			<ul class="js-filter uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" uk-grid>
+			'. mostarDatos($nombreServicio, $rowCONSULTA['imagen'], $rowCONSULTA['titulo'], $rowCONSULTA['empresa'], $rowCONSULTA['txt'], $rowCONSULTA['whatsapp'], $rowCONSULTA['facebook'], $rowCONSULTA['instagram'], $link) .'
+			</ul>
+		';
+		// mostarDatos($nombreServicio, $rowCONSULTA['imagen'], $rowCONSULTA['titulo'], $rowCONSULTA['empresa'], $rowCONSULTA['txt'], $rowCONSULTA['whatsapp'], $rowCONSULTA['facebook'], $rowCONSULTA['instagram'], $link);
 	
-
-		mostarDatos($nombreServicio, $rowCONSULTA['imagen'], $rowCONSULTA['titulo'], $rowCONSULTA['empresa'], $rowCONSULTA['txt'], $rowCONSULTA['whatsapp'], $rowCONSULTA['facebook'], $rowCONSULTA['instagram'], $link);
-	
-	//echo $output;
+	echo $final;
 	}
 
 	
