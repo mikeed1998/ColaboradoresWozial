@@ -20,7 +20,7 @@
 		<div class="portafolio-contenedor">
 			<div uk-filter="target: .js-filter">
 				<!-- Cachando los servicos de la BD //-->
-			    <ul class="uk-subnav uk-subnav-pill uk-flex uk-flex-center">
+				<ul class="uk-subnav uk-subnav-pill uk-flex uk-flex-center">
 			        <li class="uk-active" uk-filter-control>
 						<a href="#">
 							Todos
@@ -32,38 +32,40 @@
 								$titulo = $rowCONSULTA['titulo'];
 					?>
 		        				<li uk-filter-control="[data-servicio='<?=$titulo?>']">
-									<a href="#">
+									<a href="#" id="servicios">
 										<?=$titulo?>
 									</a>
 								</li>
 					<?php 
 							}
 	 				?>
-			    </ul>		
-
+			    </ul>	
+						
 				<!-- BARRA BUSQUEDA //-->
-				<div class="container">
-					<br><br><br>
+				<br><br><br>
 					<div class="form-group">
 						<div class="input-group">
 							<span class="input-group-addon">Search</span>
 							<input type="text" name="search_text" id="search_text" placeholder="Search by Customer Details" class="form-control" />
 						</div>
 					</div>
-					<br>
-					<div id="result"></div>
-				</div>
-				<div style="clear:both"></div>
-
 				
-
+						
+				<div id="completo">
 				<ul class="js-filter uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" uk-grid>
+					
+					<br>
+					<input type="text" id="slave" style="visibility: hidden;">
+					<div id="result"></div>
+					<div style="clear:both"></div>
+
+				<br>
+					
 					<?php 
 						$aux = true;
 
 						if($aux == true)
 						{
-							// $CONSULTA = $CONEXION -> query("SELECT * FROM productos WHERE txt LIKE '%mentos%'");
 							$CONSULTA = $CONEXION -> query("SELECT * FROM productos");
 						
 							while ($rowCONSULTA = $CONSULTA -> fetch_assoc()) {
@@ -74,8 +76,8 @@
 								$urlTitulo = urlencode(str_replace($caracteres_no_validos,$caracteres_si_validos, html_entity_decode(strtolower($rowCONSULTA['titulo']))));
 								$link = $id.'_'.$urlTitulo.'-.html';
 	
-								$CONSULTASERV = $CONEXION -> query("SELECT * FROM servicios WHERE id = $idServicio");
-								$rowCONSULTASERV = $CONSULTASERV -> fetch_assoc();
+								$CONSULTASERV = $CONEXION->query("SELECT * FROM servicios WHERE id = $idServicio");
+								$rowCONSULTASERV = $CONSULTASERV->fetch_assoc();
 								$nombreServicio = $rowCONSULTASERV['titulo'];
 	
 								$imagen = $rowCONSULTA['imagen'];
@@ -130,6 +132,7 @@
 			       		
 			    	?>
 				</ul>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -214,6 +217,17 @@
 				load_data();			
 			}
 		});
+	});
+</script>
+<script>
+	
+	$('#search_text').on('click focusin', function() {
+		$('#slave').show();
+		$('#result').show();
+		$('completo').hide();
+	});
+	$('#servicio').on('click focusout',function() {
+    	$('#search_text').show();
 	});
 </script>
 

@@ -23,10 +23,11 @@
 	}
 
 	function mostarDatos($a, $b, $c, $d, $e, $f, $g, $h, $i) {
-		var_dump($a);
+		//var_dump($a);
 		
 		$output = '';
 		$output.='
+		
 	 		<li data-servicio="'.$a.'" class="card-principal">
 	 			<div uk-grid class="uk-grid-collapse" style="padding-top: 80px">
 	 				<div class="uk-width-expand bg-white uk-text-center padding-top-20">
@@ -64,6 +65,7 @@
 	 			  	</div>
 	 			</div>
 	 		</li>
+		
 		';
 	
 		echo $output;
@@ -99,15 +101,12 @@
 		
 			$final = '';
 			$final .= '
-				<ul class="js-filter uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" uk-grid>
 				'. mostarDatos($nombreServicio, $rowCONSULTA['imagen'], $rowCONSULTA['titulo'], $rowCONSULTA['empresa'], $rowCONSULTA['txt'], $rowCONSULTA['whatsapp'], $rowCONSULTA['facebook'], $rowCONSULTA['instagram'], $link) .'
-				</ul>
 			';
 	
 			echo $final;
 		}
 	}
-
 ?>
 
 </body>
