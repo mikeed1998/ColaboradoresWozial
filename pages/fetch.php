@@ -6,6 +6,7 @@
 <?php
 $connect = mysqli_connect("localhost", "root", "", "colaboradores");
 $output = '';
+$output2 = '';
 
 if(isset($_POST["query"]))
 {
@@ -19,13 +20,13 @@ else
 
 $result = mysqli_query($connect, $query);
 
-while ($rowCONSULTA = $result->fetch_assoc()) {
+while ($rowCONSULTA = mysqli_fetch_assoc($result)) {
 	$id = $rowCONSULTA['id'];
 	$idEmpresa = $rowCONSULTA['empresa'];
 	$idServicio = $rowCONSULTA['servicio'];
 	$whatsapp = $rowCONSULTA['whatsapp'];
-	// $urlTitulo = urlencode(str_replace($caracteres_no_validos, $caracteres_si_validos, html_entity_decode(strtolower($rowCONSULTA['titulo']))));
-	// $link = $id.'_'.$urlTitulo.'-.html';
+//	$urlTitulo = urlencode(str_replace($caracteres_no_validos, $caracteres_si_validos, html_entity_decode(strtolower($rowCONSULTA['titulo']))));
+//	$link = $id.'_'.$urlTitulo.'-.html';
 
 //	$CONSULTASERV = $result->query("SELECT * FROM servicios WHERE id = $idServicio");
 //	$rowCONSULTASERV = $CONSULTASERV -> fetch_assoc();
@@ -37,6 +38,10 @@ while ($rowCONSULTA = $result->fetch_assoc()) {
 	/* data-servicio=/*$nombreServicio*/
 
 	$output.='
+	' .$rowCONSULTA['id']. ''.$rowCONSULTA['titulo'].' <br>
+	';
+
+	$output2.='
 		<li class="card-principal">
 			<div uk-grid class="uk-grid-collapse" style="padding-top: 80px">
 				<div class="uk-width-expand bg-white uk-text-center padding-top-20">
