@@ -20,7 +20,8 @@
 		<div class="portafolio-contenedor">
 			<div uk-filter="target: .js-filter">
 				<!-- Cachando los servicos de la BD //-->
-				<ul class="uk-subnav uk-subnav-pill uk-flex uk-flex-center">
+				<div id="completo">
+				<ul class="uk-subnav uk-subnav-pill uk-flex uk-flex-center" id="ss">
 			        <li class="uk-active" uk-filter-control>
 						<a href="#">
 							Todos
@@ -43,25 +44,23 @@
 						
 				<!-- BARRA BUSQUEDA //-->
 				<br><br><br>
-					<div class="form-group">
-						<div class="input-group">
-							<span class="input-group-addon">Search</span>
-							<input type="text" name="search_text" id="search_text" placeholder="Search by Customer Details" class="form-control" />
-						</div>
-					</div>
-				
-						
-				<div id="completo">
-				<ul class="js-filter uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" uk-grid>
-					
-					<br>
+
+					<span class="uk-label-white">Filtrar</span>
+					<input type="text" name="search_text" id="search_text" placeholder="Buscar" class="uk-input uk-form-width-medium uk-form-large" />
+
 					<input type="text" id="slave" style="visibility: hidden;">
 					<div id="result"></div>
 					<div style="clear:both"></div>
-
-				<br>
+						
+				
+					<ul class="js-filter uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" uk-grid>
+						
+					<br>
 					
 					<?php 
+
+
+
 						$aux = true;
 
 						if($aux == true)
@@ -220,19 +219,29 @@
 	});
 </script>
 <script>
+	/*
 	$(document).on('click focusin', '#search_text', function() {
 		$('#slave').show();
 		$('#result').show();
-		$('completo').hide();
+
 	});
-	$('#search_text').on('click focusout', function() {
+	
+	$(document).on('click focusout', '#search_text', function() {
 		$('#slave').show();
 		$('#result').show();
-		$('completo').show();
+
 	});
-	$('#servicios').on('click', function(){
-		location.reload();
+
+	$(document).on('click focusin', '#servicios', function() {
+
+		$('#result').hide();
+		$('input[name=search_text').val('');
 	});
+	
+	$(document).blur('click', '#search_text', function() {
+  		$('#result').hide();
+	});
+	*/
 </script>
 
 </body>
