@@ -220,10 +220,18 @@
 	});
 </script>
 <script>
-	$('#search_text').on('click focusin', function() {
+	$(document).on('click focusin', '#search_text', function() {
 		$('#slave').show();
 		$('#result').show();
 		$('completo').hide();
+	});
+	$('#search_text').on('click focusout', function() {
+		$('#slave').show();
+		$('#result').show();
+		$('completo').show();
+	});
+	$('#servicios').on('click', function(){
+		location.reload();
 	});
 </script>
 
