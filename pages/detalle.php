@@ -36,7 +36,20 @@
 				</div>
 				<div class="uk-width-auto uk-flex uk-flex-bottom">
 					<div class="uk-flex uk-flex-middle">
-						<a href="<?=$facebook?>"><?=$url?></a>&nbsp;&nbsp;&nbsp; <a href="<?=$facebook?>" class="facebook" uk-icon="icon: facebook; ratio: 1"></a> &nbsp;<a href="<?=$instagram?>" class="instagram" uk-icon="icon: instagram; ratio: 1"></a>&nbsp;&nbsp;
+						<a href="<?=(strpos($url, 'https://') !== false) ? $url : "http://$url"?>"><?=$url?></a>
+						&nbsp;&nbsp;&nbsp;
+						<?php
+							if($facebook != ""){
+								echo '<a href="'.$facebook.'" class="facebook" uk-icon="icon: facebook; ratio: 1"></a>   &nbsp;';
+							}
+													  
+							if($instagram != ""){
+								echo '<a href="'.$instagram.'" class="instagram" uk-icon="icon: instagram; ratio: 1"></a>';
+							}
+						?>
+						&nbsp;
+						
+						&nbsp;&nbsp;
 					</div>
 				</div>
 				<div class="uk-width-1-1" style="margin-top: 10px;">
@@ -103,12 +116,21 @@
 						<?php 
 						$CONSULTA = $CONEXION -> query("SELECT * FROM productos WHERE servicio = $idServicio AND id != $id ORDER BY rand() LIMIT 5");
 						while ($rowCONSULTA = $CONSULTA -> fetch_assoc()) {
+							$id = $rowCONSULTA['id'];
+							$idEmpresa = $rowCONSULTA['empresa'];
+							$idServicio = $rowCONSULTA['servicio'];
+							$whatsapp = $rowCONSULTA['whatsapp'];
+							$facebook = $rowCONSULTA['facebook'];
+							$instagram = $rowCONSULTA['instagram'];
+							$url = $rowCONSULTA['url'];
+							$urlTitulo = urlencode(str_replace($caracteres_no_validos,$caracteres_si_validos, html_entity_decode(strtolower($rowCONSULTA['titulo']))));
+							$link = $id.'_'.$urlTitulo.'-.html';
 						$imagen = $pic.$rowCONSULTA['imagen'];
 						echo '
 						<li>
 						    <div uk-grid class="uk-grid-collapse padding-top-100">
 				                <div class="uk-width-expand bg-white uk-text-center padding-top-20">
-				                    <img src="img/design/rayo.png" alt="" style="height: 30px;">
+				                    
 				                </div>
 				                <div class="uk-width-auto uk-position-relative">
 				                    <img src="img/design/testimonios-circulo.png" style="width: 150px;" alt="">
@@ -117,7 +139,7 @@
 				                    </div>
 				                </div>
 				                    <div class="uk-width-expand bg-white uk-text-center padding-top-20">
-				                      <img src="img/design/rayo.png" alt="" style="height: 30px;">
+				                      
 				                 	</div>
 				                </div>
 				                <div class="bg-white testimonios-card">
@@ -131,11 +153,21 @@
 				                  		'.wordlimit($rowCONSULTA['txt'] ,'20','...').'
 				                  	</div>
 				                  	<div uk-grid class="padding-bottom-10 padding-top-20">
-				                    	<div class="uk-width-expand uk-text-left">
-				                      	<a target="_blank" href="https://wa.me/521'.$whatsapp.'?text=Me%20gustaría%20saber%20..." class="uk-icon-button" style="height: 20px; width: 20px;" uk-icon="icon:whatsapp; ratio: .8"></a> &nbsp;
-				                      	<a target="_blank" href="'.$rowCONSULTA['facebook'].'" class="uk-icon-button" style="height: 20px; width: 20px;" uk-icon="icon:facebook; ratio: .8"></a> &nbsp;
-				                      	<a target="_blank" href="'.$rowCONSULTA['instagram'].'" class="uk-icon-button" style="height: 20px; width: 20px;" uk-icon="icon:instagram; ratio: .8"></a>
-				                    </div>
+				                    	<div class="uk-flex uk-flex-middle">
+						                    <a href="'.$url.'">'.$url.'</a>
+						                    &nbsp;&nbsp;&nbsp; ';
+											
+											if($facebook != ""){
+												echo '<a target="_blank" href="'.$facebook.'" class="facebook" uk-icon="icon: facebook; ratio: 1"></a>  &nbsp;';
+											}
+													  
+											if($instagram != ""){
+												echo '<a target="_blank" href="'.$instagram.'" class="uk-icon-button" style="height: 20px; width: 20px;" uk-icon="icon:instagram; ratio: .8"></a>';
+											}
+
+						                   echo '
+						                    &nbsp;&nbsp;
+					                    </div>
 				                    <div class="uk-width-auto testimonios-proyectos uk-flex uk-flex-middle">
 				                      <a href="'.$link.'">
 				                        Ver más <span class="color-negro" uk-icon="icon: arrow-right; ratio: .8"></span>
@@ -167,24 +199,14 @@
 <div class="uk-container padding-v-50" id="footer">
 	<div uk-grid>
 		<div class="uk-width-auto@s uk-flex uk-flex-middle uk-flex-center wozial-logo">
-			<!--
-			<a href="wozial.com">
-				<img src="img/design/logo-wozial.png" alt="" style="max-height: 80px;">
-			</a>
-			//-->
+			
 		</div>
 		<div class="uk-width-expand@s uk-flex uk-flex-middle uk-flex-center">
-			<!--
-			<div class="uk-text-center">
-				<a href="" class="typewrite footer-texto" data-period="2000" data-type='[ "Todos somos una familia" , "Y queremos apoyarnos" , "Eshot.mx", "Wozial.com", "Brincolinesbambinos.com",":)" ]'>
-					<span class="wrap"></span>
-				</a>
-			</div>
-			//-->
+			
 		</div>
 		<div class="uk-width-auto@s uk-flex uk-flex-middle uk-flex-center">
-			<a href="Brincolinesbambinos.com">
-				<img src="img/design/logobambinos.png" alt="" style="max-height: 60px;">
+			<a href="https://www.apf.org.mx">
+				<img src="img/design/APF_LOGO.png" alt="" style="max-height: 60px;">
 			</a>
 		</div>
 	</div>
